@@ -23,11 +23,11 @@ dependencies {
     ksp project(':annotation:ksp')
 }
 
-kotlin {
-    jvmToolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
-    }
-}
+//kotlin {
+//    jvmToolchain {
+//        languageVersion.set(JavaLanguageVersion.of(11))
+//    }
+//}
 
 android {
     namespace 'com.bumptech.glide.samples.gallery'

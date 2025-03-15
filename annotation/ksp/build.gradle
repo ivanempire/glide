@@ -13,8 +13,8 @@ dependencies {
 
 apply from: "${rootProject.projectDir}/scripts/upload.gradle"
 
-kotlin {
-    jvmToolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
-    }
-}
+//kotlin {
+//    jvmToolchain {
+//        languageVersion.set(JavaLanguageVersion.of(11))
+//    }
+//}
