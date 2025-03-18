@@ -24,9 +24,9 @@ android {
         }
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion libs.versions.kotlin.compiler.extension.get()
-    }
+//    composeOptions {
+//        kotlinCompilerExtensionVersion libs.versions.kotlin.compiler.extension.get()
+//    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

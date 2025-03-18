@@ -1,4 +1,20 @@
-apply plugin: 'com.android.library'
+apply plugin: "com.android.library"
+
+android {
+    namespace "com.bumptech.glide.testutil"
+
+    defaultConfig {
+        minSdk libs.versions.min.sdk.version.get() as int
+        targetSdk libs.versions.target.sdk.version.get() as int
+        compileSdk 34
+        versionName VERSION_NAME as String
+    }
+
+//    compileOptions {
+//        sourceCompatibility JavaVersion.VERSION_11
+//        targetCompatibility JavaVersion.VERSION_11
+//    }
+}
 
 dependencies {
     implementation libs.truth
@@ -6,20 +22,4 @@ dependencies {
     api libs.androidx.annotation
     api libs.androidx.core
     api libs.androidx.test.core
-}
-
-android {
-    namespace 'com.bumptech.glide.testutil'
-    compileSdkVersion libs.versions.compile.sdk.version.get()
-
-    defaultConfig {
-        minSdk libs.versions.min.sdk.version.get() as int
-        targetSdk libs.versions.target.sdk.version.get() as int
-        versionName VERSION_NAME as String
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
-    }
 }

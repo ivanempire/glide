@@ -1,18 +1,5 @@
 apply plugin: 'com.android.library'
 
-dependencies {
-    implementation project(':library')
-
-    testImplementation project(":testutil")
-    testImplementation libs.truth
-    testImplementation libs.junit
-    testImplementation libs.mockito
-    testImplementation libs.robolectric
-    testImplementation libs.androidx.test.core
-    testImplementation libs.androidx.junit
-    testImplementation libs.androidx.test.runner
-}
-
 android {
     namespace 'com.bumptech.glide.integration.gifencoder'
     compileSdkVersion libs.versions.compile.sdk.version.get()
@@ -34,6 +21,19 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+}
+
+dependencies {
+    implementation project(':library')
+
+    testImplementation project(":testutil")
+    testImplementation libs.truth
+    testImplementation libs.junit
+    testImplementation libs.mockito
+    testImplementation libs.robolectric
+    testImplementation libs.androidx.test.core
+    testImplementation libs.androidx.junit
+    testImplementation libs.androidx.test.runner
 }
 
 apply from: "${rootProject.projectDir}/scripts/upload.gradle"

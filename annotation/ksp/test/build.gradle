@@ -1,15 +1,15 @@
 plugins {
-    id 'org.jetbrains.kotlin.android'
-    id 'com.android.library'
+    id "org.jetbrains.kotlin.android"
+    id "com.android.library"
 }
 
 android {
-    namespace 'com.bumptech.glide.annotation.ksp.test'
-    compileSdkVersion libs.versions.compile.sdk.version.get()
+    namespace "com.bumptech.glide.annotation.ksp.test"
 
     defaultConfig {
         minSdk libs.versions.min.sdk.version.get() as int
         targetSdk libs.versions.target.sdk.version.get() as int
+        compileSdk 34
         versionName VERSION_NAME as String
     }
     compileOptions {

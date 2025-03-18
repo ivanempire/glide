@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: "org.jetbrains.kotlin.plugin.parcelize"
-apply plugin: 'com.google.devtools.ksp'
+// apply plugin: 'com.google.devtools.ksp'
 
 dependencies {
     implementation project(':library')
@@ -20,7 +20,7 @@ dependencies {
     implementation libs.compose.foundation
     implementation libs.compose.ui
 
-    ksp project(':annotation:ksp')
+    // ksp project(':annotation:ksp')
 }
 
 //kotlin {
@@ -45,9 +45,9 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion libs.versions.kotlin.compiler.extension.get()
-    }
+//    composeOptions {
+//        kotlinCompilerExtensionVersion libs.versions.kotlin.compiler.extension.get()
+//    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
