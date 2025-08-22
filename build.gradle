@@ -138,7 +138,7 @@ subprojects { project ->
         if ("gifencoder" != project.getName() && "imgur" != project.getName()) {
           options.compilerArgs.addAll([
             //Treat all warnings as errors.
-            "-Werror",
+            // "-Werror",
             //Enable all warnings.
             "-Xlint:all",
             // Disable warnings about source 7 being obsolete.

@@ -20,18 +20,14 @@ import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeVariableName;
-import com.sun.tools.javac.code.Attribute;
-import com.sun.tools.javac.code.Type.ClassType;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import javax.annotation.Nullable;
 import javax.annotation.processing.ProcessingEnvironment;
@@ -46,6 +42,8 @@ import javax.lang.model.element.Name;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.TypeParameterElement;
 import javax.lang.model.element.VariableElement;
+import javax.lang.model.type.DeclaredType;
+import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.type.TypeVariable;
 import javax.lang.model.util.ElementFilter;
@@ -549,39 +547,45 @@ final class ProcessorUtil {
       if (!annotationClassName.equals(annotationMirror.getAnnotationType().toString())) {
         continue;
       }
-      Set<? extends Map.Entry<? extends ExecutableElement, ? extends AnnotationValue>> values =
-          annotationMirror.getElementValues().entrySet();
-      // Excludes has only one value. If we ever change that, we'd need to iterate over all
-      // values in the entry set and compare the keys to whatever our Annotation's attribute is
-      // (usually value).
-      if (values.size() != 1) {
-        throw new IllegalArgumentException("Expected single value, but found: " + values);
+
+      var entries = annotationMirror.getElementValues().entrySet();
+      if (entries.size() != 1) {
+        throw new IllegalArgumentException("Expected single value, but found: " + entries);
       }
-      excludedModuleAnnotationValue = values.iterator().next().getValue();
-      if (excludedModuleAnnotationValue == null
-          || excludedModuleAnnotationValue instanceof Attribute.UnresolvedClass) {
+      excludedModuleAnnotationValue = entries.iterator().next().getValue();
+      if (excludedModuleAnnotationValue == null) {
         throw new IllegalArgumentException(
-            "Failed to find value for: "
-                + annotationClass
-                + " from mirrors: "
-                + clazz.getAnnotationMirrors());
+            "Failed to find value for: " + annotationClass + " from mirrors: " + clazz.getAnnotationMirrors());
       }
     }
+
     if (excludedModuleAnnotationValue == null) {
-      return Collections.emptySet();
+      return java.util.Collections.emptySet();
     }
+
     Object value = excludedModuleAnnotationValue.getValue();
-    if (value instanceof List) {
-      List<?> values = (List<?>) value;
-      Set<String> result = new HashSet<>(values.size());
-      for (Object current : values) {
-        result.add(getExcludedModuleClassFromAnnotationAttribute(clazz, current));
+    if (value instanceof java.util.List) {
+      java.util.LinkedHashSet<String> out = new java.util.LinkedHashSet<>();
+      for (Object o : (java.util.List<?>) value) {
+        AnnotationValue av = (AnnotationValue) o;
+        out.add(qualifiedNameFromTypeMirror((TypeMirror) av.getValue()));
       }
-      return result;
+      return out;
     } else {
-      ClassType classType = (ClassType) value;
-      return Collections.singleton(classType.toString());
+      return java.util.Collections.singleton(qualifiedNameFromTypeMirror((TypeMirror) value));
     }
+  }
+
+  static String qualifiedNameFromTypeMirror(TypeMirror type) {
+    if (type.getKind() == TypeKind.ERROR) {
+      throw new IllegalArgumentException("Unresolved class type in annotation: " + type);
+    }
+    if (type.getKind() == TypeKind.DECLARED) {
+      DeclaredType dt = (DeclaredType) type;
+      TypeElement te = (TypeElement) dt.asElement();
+      return te.getQualifiedName().toString();
+    }
+    return type.toString();
   }
 
   // We should be able to cast to Attribute.Class rather than use reflection, but there are some
