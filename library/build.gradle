@@ -100,4 +100,5 @@ def classPathForQuality() {
     )
 }
 
+println("Got root project directory: " + rootProject.projectDir)
 apply from: "${rootProject.projectDir}/scripts/upload.gradle.kts"

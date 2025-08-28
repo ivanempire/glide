@@ -21,6 +21,7 @@ if (pluginManager.hasPlugin("java") || pluginManager.hasPlugin("java-library")) 
 
 // Sign and fill out POM
 extensions.findByName("mavenPublishing")?.withGroovyBuilder {
+  println("Applying publishing script to project with name: " + project.name)
   "signAllPublications"()
 
   "pom" {
