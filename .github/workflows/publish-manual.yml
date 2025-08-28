@@ -18,7 +18,7 @@ jobs:
           distribution: "zulu"
           java-version: "17"
       - name: Debugging task names
-        run: ./gradlew :mocks:tasks
+        run: ./gradlew assemble publish
       # - name: Build and publish everything to Maven Central
       # # This can be improved in Gradle
       #   run: ./gradlew assemble :mocks:publishToMavenCentral :annotation:publishToMavenCentral :library:publishToMavenCentral :integration:sqljournaldiskcache:publishToMavenCentral :annotation:ksp:publishToMavenCentral :integration:recyclerview:publishToMavenCentral :integration:avif:publishToMavenCentral :integration:okhttp:publishToMavenCentral :integration:gifencoder:publishToMavenCentral :integration:ktx:publishToMavenCentral :integration:okhttp4:publishToMavenCentral :integration:volley:publishToMavenCentral :integration:concurrent:publishToMavenCentral :integration:cronet:publishToMavenCentral :integration:okhttp3:publishToMavenCentral :integration:compose:publishToMavenCentral :integration:compiler:publishToMavenCentral
