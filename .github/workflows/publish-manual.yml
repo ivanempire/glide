@@ -25,6 +25,8 @@ jobs:
           ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.MAVEN_SIGNING_KEY_ID }}
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.MAVEN_SIGNING_PRIVATE_KEY }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.MAVEN_SIGNING_PRIVATE_KEY_PASSWORD }}
+          ORG_GRADLE_PROJECT_mavenCentralPublishing: true
+          ORG_GRADLE_PROJECT_mavenCentralAutomaticPublishing: false
       # - name: Build and publish everything to Maven Central
       # # This can be improved in Gradle
       #   run: ./gradlew assemble :mocks:publishToMavenCentral :annotation:publishToMavenCentral :library:publishToMavenCentral :integration:sqljournaldiskcache:publishToMavenCentral :annotation:ksp:publishToMavenCentral :integration:recyclerview:publishToMavenCentral :integration:avif:publishToMavenCentral :integration:okhttp:publishToMavenCentral :integration:gifencoder:publishToMavenCentral :integration:ktx:publishToMavenCentral :integration:okhttp4:publishToMavenCentral :integration:volley:publishToMavenCentral :integration:concurrent:publishToMavenCentral :integration:cronet:publishToMavenCentral :integration:okhttp3:publishToMavenCentral :integration:compose:publishToMavenCentral :integration:compiler:publishToMavenCentral
